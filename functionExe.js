@@ -62,16 +62,14 @@ accepts an integer that specifies how many times the string has
 to be repeated. The function returns the string repeated the number 
 of times specified. For example:
 */ 
-function Thestring(str){
-    this.str = str;
+
+  
+  String.prototype.repitify = function(times){
+    return this.valueOf().repeat(times);
   }
   
-  Thestring.prototype.repitify = function(times){
-    return this.str.repeat(times);
-  }
   
-  const test = new Thestring("moyo");
-  console.log(test.repitify(12));
+  console.log("moyo".repitify(12));
 
 
 
