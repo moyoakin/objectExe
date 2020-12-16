@@ -1,18 +1,20 @@
 /** Question 1
 Looking at the function below, why is it print out 'hey arnold' instead of 
 'hey amy', then fix it (please use technical vocabulary)
+
+function was fixed by using the Object deep cloning method to convert the object to a regular JS text using the JSON.stringify method;
 */
 
 
 
 function greet (person) {
-    if (person = { name: 'amy' }){
-      console.log('hey', person.name);
-    }
+    if (JSON.stringify(person) == JSON.stringify({ name: 'amy' })) {
+      return 'hey amy'
+    } else {
       return 'hey arnold'
-    
+    }
   }
-  greet({ name: 'amy' }); 
+  greet({ name: 'amy' });
 ​
 /** Question 2
 Write a function that returns an anonymous function, which transforms its 
@@ -29,11 +31,14 @@ add_less("fear") ➞ "fearless"
 add_less("ruth") ➞ "ruthless"
  */
 
-function addSuffix(theWord){
-    return theWord.concat("ly");
+function processWord(word){
+    return function suffix(suff){
+      return word + suff;
+    }
   }
-
-  word('flexy');
+  
+  const processed = processWord('hope');
+  let callIt = console.log(processed("lly"));
 ​
 ​
 /** Question 3
@@ -57,12 +62,18 @@ accepts an integer that specifies how many times the string has
 to be repeated. The function returns the string repeated the number 
 of times specified. For example:
 */ 
-
-function repeatWord(word,num){
-    return word.repeat(num);
+function Thestring(str){
+    this.str = str;
   }
   
-  repeatWord('king', 4);
+  Thestring.prototype.repitify = function(times){
+    return this.str.repeat(times);
+  }
+  
+  const test = new Thestring("moyo");
+  console.log(test.repitify(12));
+
+
 
 
  
@@ -85,11 +96,16 @@ const f3 = redundant("")
 f3() ➞ ""
  */
 
- function redundant(str){
-     return (str);
- }
+function redundant(str){
+    return function(){
+        return str;
+    }
+}
 
- redundant("str");
+const redundant_word = redundant('what');
+console.log(redundant_word());
+
+ 
 ​
 
  /** Quesion 6
@@ -124,24 +140,12 @@ plusFive(plusTen(0)) ➞ 15
   */
 
 //Question 6a
- function plusFive(num,cb){
-    return cb(num);
+function baseNumber(num){
+  return function(num1){
+    return num + num1;
+
+  }
 }
 
-function addAll(num){
-    return num + 5
-}
-
-plusFive(5,addAll);
-
-//Question 6b
-
-function plusTen(int,callback){
-    return callback(int);
-}
-
-function addTen(int){
-    return int + 10;
-}
-
-plusTen(10,addTen);
+const calculation = baseNumber(15);
+console.log(calculation(4));
